@@ -21,11 +21,15 @@ For example, my setting file:
 
 NOTE: NVIDIA part is not important. They were before.
 Then
- we need to update our GRUB settings by running the group update 
+we need to update our GRUB settings by running the group update
 command. Doing so is different from distribution to distribution.
+
 Ubuntu/Mint/Debian `sudo update-grub`
+
 Arch `sudo grub-mkconfig -o /boot/grub2/grub.cfg`
+
 Fedora  `sudo grub2-mkconfig -o /boot/grub2/grub.cfg` with you can.
+
 Please call the GRUB update command to differently.
 If you're not using GRUB, you're using systemd-boot  `/boot/efi/loader/entries/` from the .conf extension file you will find your .conf extension and enter the above commands in the options section, and then `sudo bootctl update` 
 you will run the command.
