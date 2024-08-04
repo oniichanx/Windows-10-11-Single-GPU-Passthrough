@@ -38,4 +38,10 @@ you're using systemd-boot `/boot/efi/loader/entries/` from the .conf extension f
 and enter the above commands in the options section, and then `sudo bootctl update`
 
 you will run the command.
+
 You need to restart your computer after these operations!
+
+2 - IOMMU Groups
+In this step we will look at the IOMMU group, which includes our video card.
+
+If your video card is in which IOMMU group, you must add every item there to the virtual machine.
