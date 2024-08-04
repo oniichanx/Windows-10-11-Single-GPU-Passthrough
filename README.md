@@ -12,6 +12,7 @@ After  /etc/default/grubwe'll edit the file.
 `GRUB_CMDLINE_LINUX_DEFAULT=` writing
 
 for AMD  `amd_iommu=on iommu=pt`
+
 For Intel  `intel_iommu=on iommu=pt`
 we're adding the post.
 
