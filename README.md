@@ -1,5 +1,9 @@
 # Windows 10/11 Single GPU Passthrough
 
+## Toggle Theme
+
+<button id="theme-toggle">Toggle Dark Mode</button>
+
 Requirements
 1. Your video card needs to support the UEFI. If it doesn't support, you can't do this.
 2. Your operating system should be installed in UEFI mode.
