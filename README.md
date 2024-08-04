@@ -639,6 +639,14 @@ So how to fix that
 
 you just need to add to your bootloader
 
+For Grub add to `GRUB_CMDLINE_LINUX_DEFAULT=`
+
+```
+nvidia-drm.fbdev=1
+```
+
+For systemd-boot add to `/boot/loader/entries/`
+
 ```
 nvidia-drm.fbdev=1
 ```
