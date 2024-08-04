@@ -32,7 +32,9 @@ Fedora  `sudo grub2-mkconfig -o /boot/grub2/grub.cfg` with you can.
 
 Please call the GRUB update command to differently.
 If you're not using GRUB,
-you're using systemd-boot ``/boot/efi/loader/entries/`` from the .conf extension file
-you will find your .conf extension and enter the above commands in the options section, and then `sudo bootctl update` 
+you're using systemd-boot `/boot/efi/loader/entries/` from the .conf extension file
+
+you will find your .conf extension and enter the above commands in the options section, and then `sudo bootctl update`
+
 you will run the command.
 You need to restart your computer after these operations!
