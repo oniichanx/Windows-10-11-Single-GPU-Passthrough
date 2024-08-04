@@ -17,7 +17,7 @@ we're adding the post.
 For example, my setting file:
 <img src="https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-39.png" alt="bootloader">
 
-![Alt text]({{ 'https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-39.png' | relative_url }})
+![Sample Image](./pic/image-39.png)
 
 NOTE: NVIDIA part is not important. They were before.
 Then
