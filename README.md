@@ -361,8 +361,157 @@ sudo modprobe radeon
 
 In the same way, we can start the display manager back.
 
-## For GNOME: `sudo systemctl start gdm3`
+### For GNOME: `sudo systemctl start gdm3`
 
-## For KDE: `sudo systemctl start sddm`
+### For KDE: `sudo systemctl start sddm`
 
-## For XFCE: `sudo systemctl start lightdm`
+### For XFCE: `sudo systemctl start lightdm`
+
+I just told you that people who use Ubuntu might have trouble. If you
+are using Ubuntu, make the following steps to extract the modules and
+extract your ROM file.
+
+```
+sudo systemctl set-default multi-user
+gnome-session-quit
+```
+
+# 5.1.2 OPTION 2 (If You Use Windows)
+When you install the GPU-Z program and press the part on the arrow, it will
+transfer the ROM out for you. Deliver this to your Linux system somehow.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-56.png)
+
+# 5.2 ROM Patches Our File
+It's easy to patch your ROM. This process is not required for AMD ROMs.
+You will need a hex editor like Okteta on Linux, or HxD if you're still
+using Windows. Open a copy of your rum file in the editor of your 
+choice, hiding the original in a secure place. To access the search
+function, press Ctrl+F and search VIDEO in Char setting:
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-57.png)
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-58.png)
+
+Now, before the first U before the VIDEO we just called, place your cursor like this and choose everything before it:
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-59.png)
+
+Press the DEL key and delete your selection when everything before U is
+selected. If you can't delete in Okteta, change the editing mode by
+pressing your INSER key or changing mode from the bar under the Octa
+window (INS or OVR mode). You must finally get a similar result:
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-60.png)
+
+Save the file with a different name like patched.rom. Your ROM is now patched and available!
+
+# 5.3 Place ROM
+This step varies according to your Linux distribution. Please place your ROM according to your distribution.
+
+### For Many Distributions:
+
+```
+sudo mkdir /usr/share/vgabios
+cp ./patched.rom /usr/share/vgabios/
+cd /usr/share/vgabios
+sudo chmod -R 644 patched.rom
+sudo chown oniichanx:oniichanx patched.rom
+```
+
+### For Fedora Based Distributions:
+
+```
+sudo mkdir /var/lib/libvirt/vgabios
+cp ./patched.rom /var/lib/libvirt/vgabios/
+cd /var/lib/libvirt/vgabios/
+sudo chmod -R 644 patched.rom
+sudo chown yourusername:yourusername patched.rom
+sudo semanage fcontext -a -t virt_image_t /var/lib/libvirt/vgabios/patched.rom
+sudo restorecon -v /var/lib/libvirt/vgabios/patched.rom
+```
+
+Your ROM should look like this:
+
+`-rw-r--r-- 1 wormstweaker wormstweaker 962048 9 oct. 21:30 patched.rom`
+
+# 6 - Scripts and Record Files
+When we start our virtual machine, some scripts have to work in the background. We're gonna do this with qemu hook.
+
+# 6.1 Download the Warehouse
+The one who prepared these scripts is [Risingprism](https://gitlab.com/risingprismtv/single-gpu-passthrough).
+
+`git clone https://gitlab.com/risingprismtv/single-gpu-passthrough.git`
+
+Then we will enter the incregate and run the command below.
+
+```
+sudo chmod +x install_hooks.sh
+sudo ./install_hooks.sh
+```
+
+Make sure all the files are settled correctly. It should be like below.
+
+```
+/etc/systemd/system/libvirt-nosleep@.service
+/usr/local/bin/vfio-startup.sh
+/usr/local/bin/vfio-teardown.sh
+/etc/libvirt/hooks/qemu
+```
+
+`/etc/libvirt/hooks/qemu` come to the file  `if [[ $OBJECT == "win11" ]]; then` you need to write "win11" in the section whatever the name of your virtual machine is. The hook won't work.
+
+Note for KDE Users: If you are using KDE, you may want to make the following addition that I wrote to the script.
+
+```
+function kill_yusuf_processes_except_ssh {
+    # Get the list of SSH and Bash process IDs for user yusuf
+    ssh_pids=($(pgrep -u yusuf ssh))
+    bash_pids=($(pgrep -u yusuf bash))
+    echo "ssh pids: $ssh_pids"
+    echo "bash pids $bash_pids"
+    # Combine SSH and Bash process IDs into one array
+    exclude_pids=("${ssh_pids[@]}" "${bash_pids[@]}")
+    # Kill all processes of user yusuf except the SSH and Bash processes
+    for pid in $(pgrep -u yusuf); do
+        if [[ ! " ${exclude_pids[@]} " =~ " ${pid} " ]]; then
+            kill -9 $pid
+        fi
+    done
+    echo "$DATE All processes of user yusuf killed except SSH and Bash processes"
+}
+kill_yusuf_processes_except_ssh
+
+sleep "1"
+```
+
+The reason I added this was because we stopped the service with
+systemctl at KDE, the user's operations were not closed, so I was having
+trouble removing the nvidia module. The above command kills all
+transactions of the user other than SSH and Bash. Of course you  `yusuf` you must enter your own username in the part that is written.  `/usr/local/bin/vfio-startup` You can add this to the script just before the modules are removed.
+
+# Location of 6.2 Debugging / Recording Files
+If you have made the setting in 3.1.3, your registration files will be as
+follows. This part is important because you may encounter bugs you do
+not expect, and you can't solve problems if you don't understand where
+it doesn't work.
+
+```
+sanal-makine-adı.log => /var/log/libvirt/qemu/sanal-makine-adın.log
+custom_hooks.log => /var/log/libvirt/
+libvirtd.log => /var/log/libvirt/
+```
+
+If you have problems, I recommend you to review custom_hooks.log,
+virtual-machine-name.log and libvirtd.log records respectively.
+I also recommend that you connect SSH with a second computer and manage
+this main computer. Thus, you can reach your registration files faster instantly.
+On your master computer to install SSH connection  `sudo systemctl start ssh` write and from your second computer  `ssh oniichanx@lokalipadresin` you can connect in the form.
+
+# 7 - Assigning GPU to your VM
+Now we're going to add the GPU to the VM!
+
+# 7.1 Wi-in the Virtual Image Server
+By default, the image procho comes with Spice, but we don't need it anymore.
+
+Come to the Virt Manager => Edit => Preference and activate "Enable XML editing."
+
