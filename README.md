@@ -31,6 +31,7 @@ Arch `sudo grub-mkconfig -o /boot/grub2/grub.cfg`
 Fedora  `sudo grub2-mkconfig -o /boot/grub2/grub.cfg` with you can.
 
 Please call the GRUB update command to differently.
+
 If you're not using GRUB,
 you're using systemd-boot `/boot/efi/loader/entries/` from the .conf extension file
 
