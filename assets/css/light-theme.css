@@ -1,29 +1,18 @@
 /* Light Theme Styles */
-
-/* General Background and Text Colors */
 body {
     background-color: #ffffff;
     color: #000000;
 }
 
-/* Links and Headings */
 a {
     color: #1a73e8;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #000000;
-}
-
-/* Navigation Bar */
 .navbar {
     background-color: #f8f9fa;
 }
 
-/* Code Blocks */
 pre, code {
     background-color: #f5f5f5;
     color: #000000;
 }
-
-/* Additional styling as needed */
