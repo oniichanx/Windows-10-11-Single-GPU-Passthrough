@@ -515,3 +515,130 @@ By default, the image procho comes with Spice, but we don't need it anymore.
 
 Come to the Virt Manager => Edit => Preference and activate "Enable XML editing."
 
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-61.png)
+
+Then come to the XML part of your virtual machine.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-62.png)
+
+And delete the following parts:
+
+```
+  <graphics type="spice" autoport="yes">
+    <listen type="address"/>
+    <gl enable="no"/>
+  </graphics>
+```
+
+```
+`<audio id="1" type="none"/>`
+```
+
+```
+  <video>
+    <model type="bochs" vram="16384" heads="1" primary="yes"/>
+    <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0"/>
+  </video>
+```
+
+```
+  <channel type="spicevmc">
+    <target type="virtio" name="com.redhat.spice.0"/>
+    <address type="virtio-serial" controller="0" bus="0" port="1"/>
+  </channel>
+```
+
+# 7.1.2 We Add GPU and Our ROM File
+You will remember the devices we saved from our IOMMU groups (adim 2) now
+after clicking "add hardware" from the bottom left, we come to the "PCI
+Host Device" tab and add the devices we found in our IOMMU group.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-63.png)
+
+We go to the XML tab of your GPU and add the following line:
+
+`<rom file='/usr/share/vgabios/patched.rom'/>`
+
+Of course, that depends on the distribution you are using. (Stregged 5.3)
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-64.png)
+
+If you are using Fedora based distribution:
+
+`<rom file='/var/lib/libvirt/vgabios/patched.rom'/>`
+
+# 7.1.3 (Optional) 1000 Series and Old NVIDIA Cards
+For older NVidia GPUs than the GTX 1000 series (included) you may need to add the following parameters to your XML. Your XML  `<features>` go to the section and add the following lines:
+
+```
+  <features>
+    <acpi/>
+    <apic/>
+    <hyperv>
+      <relaxed state='on'/>
+      <vapic state='on'/>
+      <spinlocks state='on' retries='8191'/>
+      <vendor_id state='on' value='123456789123'/>
+    </hyperv>
+    <kvm>
+      <hidden state='on'/>
+    </kvm>
+    <vmport state='off'/>
+    <ioapic driver='kvm'/>
+```
+
+For mobile cards, you need to imitate a battery and transmit the seller ID of your card.
+Change the first line of your XML as follows:
+
+`<domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">`
+
+And at the bottom of your XML, `</domain>` add this block before:
+
+```
+</qemu:commandline>
+  <qemu:override>
+    <qemu:device alias='hostdev0'>
+      <qemu:frontend>
+        <qemu:property name='x-pci-sub-vendor-id' type='unsigned' value='4136'/>
+        <qemu:property name='x-pci-sub-device-id' type='unsigned' value='1909'/>
+      </qemu:frontend>
+    </qemu:device>
+  </qemu:override>
+</domain>
+```
+
+# 8 - Final Settings to XML File
+
+For AMD CPUs, you can activate topoext to allow hyperthreading.
+
+```
+  <cpu mode='host-passthrough' check='none'>
+    <topology sockets='1' dies='1' cores='12' threads='2'/>
+    <feature policy='require' name='topoext'/>
+  </cpu>
+```
+
+For Intel CPUs, you can activate SMEP (Supervisor Mode Execution Protection) as follows:
+
+```
+  <cpu mode='host-passthrough' check='none'>
+    <topology sockets='1' dies='1' cores='12' threads='2'/>
+    <feature policy='disable' name='smep'/>
+  </cpu>
+```
+
+If you've done everything right now, when you start your virtual 
+machine, your Linux machine will become inactive in the background and 
+your Windows machine will start. When Windows is turned off, your Linux 
+machine will come back!
+
+# know issue
+
+If you using `SDDM` with `wayland` you much gonna take backsreen when you shutdown VM
+So how to fix that
+
+you just need to add to your bootloader
+
+```
+nvidia-drm.fbdev=1
+```
