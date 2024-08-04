@@ -3,8 +3,6 @@ Requirements
 2. Your operating system should be installed in UEFI mode.
 3. Your processor needs to support virtualization.
 
-<img src="https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-39.png">
-
 # 1 - IOMMU Activation
 We need to activate IOMMU technology to transfer devices from our main machine to the guest.
 First of all, you need to activate IOMMU in the BIOS settings.
@@ -17,7 +15,7 @@ For Intel  `intel_iommu=on iommu=pt`
 we're adding the post.
 
 For example, my setting file:
-![bootloader](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-39.png)
+<img src="https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-39.png" alt="bootloader">
 
 NOTE: NVIDIA part is not important. They were before.
 Then
