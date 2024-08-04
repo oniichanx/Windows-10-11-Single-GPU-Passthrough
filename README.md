@@ -196,11 +196,11 @@ We set RAM on the next screen. Don't give all your RAM to the VM, your
 computer crashs. It is advisable to leave a RAM from 1 to 3 GB on your 
 host.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-44.png)
+![New VM](./pic/image-44.png)
 
 In the summary section, mark the "Customize configuration before install" tick.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-45.png)
+![New VM](./pic/image-45.png)
 
 For subsequent settings, do not forget to press the "Agreat" button at the bottom right after each step.
 Now,in your VM you are in the Overview tab in your public settings. In this
@@ -208,27 +208,27 @@ tab, at the bottom, set the chipset to "Q35." Select a UEFI firmware,
 depending on your deployment, the names may vary, but it always ends 
 with "OVMF_.fd" or "ovmf-.bin."
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-46.png)
+![New VM](./pic/image-46.png)
 
 If you are using Windows 11, you should choose what ends with sec-boot.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-47.png)
+![New VM](./pic/image-47.png)
 
 Go to the CPU tab. Mark the "Copy host CPU configuration" tick and 
 expand "Topology. Mark the "Manually set CPU topology" tick and change 
 the setting depending on your CPU. For more CPU about your processor  `lscpu` you can run the command.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-48.png)
+![New VM](./pic/image-48.png)
 
 Then, choose the "Disk 1" drive. Set "Disk bus" to VirtIO. Open "Advanced Options" and set "Cache mode" option to "writeback."
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-49.png)
+![New VM](./pic/image-49.png)
 
 Go to the "Boot Options" tab make sure that "SATA CDROM 1" is selected 
 and in the first position. This is your Windows 10 or Windows 11 ISO 
 file.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-50.png)
+![New VM](./pic/image-50.png)
 
 Click "Add Hardware" from the bottom left to "Device Type" CD-ROM 
 device, and select your previously downloaded VirtIO ISO file. Make sure
@@ -239,27 +239,27 @@ select the drive model as Virtio. Uninstall the link state mark, this
 tick will discontinu internet access to the VM. Installing without the 
 Internet is usually healthier on Windows.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-51.png)
+![New VM](./pic/image-51.png)
 
 Note: If you are using Windows 11, you should add 
 virtual TPM. For this, it is necessary to have a swtpm package installed in your system.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-65.png)
+![New VM](./pic/image-65.png)
 
 # 4.3 Windows Setup
 You may have noticed that we haven't added the GPU to the VM yet. We need to complete the Windows installation before adding the GPU.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-52.png)
+![New VM](./pic/image-52.png)
 
 On the disk select screen, you will notice that our disk does not appear
 because VirtIO drivers are not installed. We click on the load driver 
 option below and install the required drive from our ISO file.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-53.png)
+![New VM](./pic/image-53.png)
 
 If you are using Windows 11, select the w11 type-writer folder.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-54.png)
+![New VM](./pic/image-54.png)
 
 We can now perform the installation.
 
@@ -280,7 +280,7 @@ open the file. Pay attention to the file name, it should be like amdvbflash.
 
 `Ctrl + Alt + F2` open the TTY screen with. (If not opened, try the F key differently.)
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-55.png)
+![New VM](./pic/image-55.png)
 
 After logging in with your username and password, you need to stop 
 your Display Manager service. The name of this service may change 
@@ -378,7 +378,7 @@ gnome-session-quit
 When you install the GPU-Z program and press the part on the arrow, it will
 transfer the ROM out for you. Deliver this to your Linux system somehow.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-56.png)
+![New VM](./pic/image-56.png)
 
 # 5.2 ROM Patches Our File
 It's easy to patch your ROM. This process is not required for AMD ROMs.
@@ -387,19 +387,19 @@ using Windows. Open a copy of your rum file in the editor of your
 choice, hiding the original in a secure place. To access the search
 function, press Ctrl+F and search VIDEO in Char setting:
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-57.png)
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-58.png)
+![New VM](./pic/image-57.png)
+![New VM](./pic/image-58.png)
 
 Now, before the first U before the VIDEO we just called, place your cursor like this and choose everything before it:
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-59.png)
+![New VM](./pic/image-59.png)
 
 Press the DEL key and delete your selection when everything before U is
 selected. If you can't delete in Okteta, change the editing mode by
 pressing your INSER key or changing mode from the bar under the Octa
 window (INS or OVR mode). You must finally get a similar result:
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-60.png)
+![New VM](./pic/image-60.png)
 
 Save the file with a different name like patched.rom. Your ROM is now patched and available!
 
@@ -513,11 +513,11 @@ By default, the image procho comes with Spice, but we don't need it anymore.
 
 Come to the Virt Manager => Edit => Preference and activate "Enable XML editing."
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-61.png)
+![New VM](./pic/image-61.png)
 
 Then come to the XML part of your virtual machine.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-62.png)
+![New VM](./pic/image-62.png)
 
 And delete the following parts:
 
@@ -551,7 +551,7 @@ You will remember the devices we saved from our IOMMU groups (adim 2) now
 after clicking "add hardware" from the bottom left, we come to the "PCI
 Host Device" tab and add the devices we found in our IOMMU group.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-63.png)
+![New VM](./pic/image-63.png)
 
 We go to the XML tab of your GPU and add the following line:
 
@@ -559,7 +559,7 @@ We go to the XML tab of your GPU and add the following line:
 
 Of course, that depends on the distribution you are using. (Stregged 5.3)
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-64.png)
+![New VM](./pic/image-64.png)
 
 If you are using Fedora based distribution:
 
