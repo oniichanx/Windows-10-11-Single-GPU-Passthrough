@@ -15,9 +15,7 @@ For Intel  `intel_iommu=on iommu=pt`
 we're adding the post.
 
 For example, my setting file:
-<img src="https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-39.png" alt="bootloader">
-
-![Sample Image](./pic/image-39.png)
+![bootloader](./pic/image-39.png)
 
 NOTE: NVIDIA part is not important. They were before.
 Then
@@ -188,11 +186,11 @@ Machine Manager window. By default, you will ask you to select a upload
 media, select the ISO file from the drop-down menu and automatically 
 detect the system type below. If it does not detect, type of system.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-40.png)
+![New VM](./pic/image-40.png)
 
 If you are using Windows 10 for disk size, you should write at least 50 GB if you are using Windows 11, at least 128 GB.
 
-![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-43.png)
+![New VM](./pic/image-43.png)
 
 We set RAM on the next screen. Don't give all your RAM to the VM, your 
 computer crashs. It is advisable to leave a RAM from 1 to 3 GB on your 
