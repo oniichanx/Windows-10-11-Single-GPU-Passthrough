@@ -264,3 +264,105 @@ If you are using Windows 11, select the w11 type-writer folder.
 ![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-54.png)
 
 We can now perform the installation.
+
+# 5 - Preparation and Placement of ROM File
+Your VM needs to access the ROM to properly function with your GPU. This is mostly true for NVIDIA cards and some AMD cards. You have multiple
+options to make your ROM file. You can also download your ROM [from TechPoweredUp](https://www.techpowerup.com/vgabios/), but this is not recommended. Because you can download the old ROMs and face the problem.
+
+# 5.1 Transfer Your GPU ROM to File
+
+# 5.1.1 Option 1 (If you use Linux)
+FOR NVIDIA:
+First of all, download the latest version of [NVFlash](https://www.techpowerup.com/download/nvidia-nvflash/) Linux to an easily accessible folder and open the file. The file name must be nvflash.
+
+FOR AMD:
+[AMDVBFlash / ATI ATIFlash](https://www.techpowerup.com/download/ati-atiflash/)
+Download the latest version of Linux to an easily accessible folder and
+open the file. Pay attention to the file name, it should be like amdvbflash.
+
+`Ctrl + Alt + F2` open the TTY screen with. (If not opened, try the F key differently.)
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-55.png)
+
+After logging in with your username and password, you need to stop 
+your Display Manager service. The name of this service may change 
+according to which desktop environment you are using.
+
+For GNOME: `sudo systemctl stop gdm3`
+
+For KDE: `sudo systemctl stop sddm`
+
+For XFCE: `sudo systemctl stop lightdm`
+
+If you are using Ubuntu and you are stopping gdm3, I will show you how you can solve this segment at the end of this segment.
+To successfully convert your GPU rum into file, we need to tell your core to stop using drivers for this. This  `modprobe -r` we can do it with command.
+
+Run the following commands according to your video card:
+
+NVIDIA
+
+```
+sudo modprobe -r nvidia_uvm
+sudo modprobe -r nvidia_drm
+sudo modprobe -r nvidia_modeset
+sudo modprobe -r nvidia
+```
+
+AMD
+
+```
+sudo modprobe -r drm_kms_helper
+sudo modprobe -r amdgpu
+sudo modprobe -r radeon
+```
+
+You can also get a no-releament error even if you use other software for
+your video card. For example, I got a mistake because I used the be
+ollama. It's good to take care of that, too.
+
+Now we can transfer the ROM to the file. Enter the following commands depending on which software you will use.
+
+NVIDIA
+
+```
+sudo chmod +x nvflash
+sudo ./nvflash --save etcios.rom
+``
+
+AMD
+
+```
+sudo chmod +x amdvbflash
+sudo ./amdvbflash -s 0 vbios.rom
+```
+
+Note for AMD GPUs: 0 in the parameter is your adapter, 
+if yours is not 0, you can find out which number you should put here 
+using sudo ./amdvbflash -i command.
+
+Now we can return to our system by reloading modules.
+
+NVIDIA
+
+```
+sudo modprobe nvidia
+sudo modprobe nvidia_uvm
+sudo modprobe nvidia
+sudo modprobe nvidia_modeset
+```
+
+AMD
+
+```
+sudo modprobe drm_kms_helper
+sudo modprobe amdgpu
+sudo modprobe radeon
+```
+
+In the same way, we can start the display manager back.
+
+# For GNOME: `sudo systemctl start gdm3`
+
+# For KDE: `sudo systemctl start sddm`
+
+# For XFCE: `sudo systemctl start lightdm`
