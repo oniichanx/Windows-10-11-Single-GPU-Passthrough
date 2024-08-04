@@ -1,7 +1,5 @@
 # Windows 10/11 Single GPU Passthrough
 
-## Toggle Theme
-
 <button id="theme-toggle">Toggle Dark Mode</button>
 
 Requirements
