@@ -3,6 +3,8 @@ Requirements
 2. Your operating system should be installed in UEFI mode.
 3. Your processor needs to support virtualization.
 
+<img src="{{ '/pic/image-39.png' | relative_url }}" alt="Description">
+
 # 1 - IOMMU Activation
 We need to activate IOMMU technology to transfer devices from our main machine to the guest.
 First of all, you need to activate IOMMU in the BIOS settings.
