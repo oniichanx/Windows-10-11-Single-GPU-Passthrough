@@ -5,7 +5,7 @@ Requirements
 2. Your operating system should be installed in UEFI mode.
 3. Your processor needs to support virtualization.
 
-#1 - IOMMU Activation
+# 1 - IOMMU Activation
 We need to activate IOMMU technology to transfer devices from our main machine to the guest.
 First of all, you need to activate IOMMU in the BIOS settings.
 After  /etc/default/grubwe'll edit the file.
@@ -41,7 +41,7 @@ you will run the command.
 
 You need to restart your computer after these operations!
 
-#2 - IOMMU Groups
+# 2 - IOMMU Groups
 In this step we will look at the IOMMU group, which includes our video card.
 
 If your video card is in which IOMMU group, you must add every item there to the virtual machine.
