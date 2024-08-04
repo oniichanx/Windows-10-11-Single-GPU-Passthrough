@@ -178,9 +178,9 @@ If you don't want to encounter the start warning every time you turn on your com
 Now it's time to install Windows.
 
 # 4.1 Required Files
-You should download the latest Virtio ISO file.
+You should download the latest [Virtio ISO file](https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md).
 
-You can download ISO file from optional Windows 10 or Windows 11 official sites
+You can download ISO file from [optional Windows 10](https://www.microsoft.com/en-en/software-download/windows10ISO) or [Windows 11](https://www.microsoft.com/en-en/software-download/windows11) official sites
 
 # 4.2 VM Installation
 First,click the "Create Machine" button in the top left corner of the Virtual
