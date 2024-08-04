@@ -9,6 +9,6 @@ Requirements
 We need to activate IOMMU technology to transfer devices from our main machine to the guest.
 First of all, you need to activate IOMMU in the BIOS settings.
 After  /etc/default/grubwe'll edit the file.
-`GRUB_CMDLINE_LINUX_DEFAULT=` writing for AMD  `"amd_iommu=on iommu=pt"`For Intel  `intel_iommu=on iommu=pt'` we're adding the post.
+`GRUB_CMDLINE_LINUX_DEFAULT=` writing for AMD  `amd_iommu=on iommu=pt`For Intel  `intel_iommu=on iommu=pt` we're adding the post.
 
 For example, my setting file:
