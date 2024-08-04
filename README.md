@@ -361,8 +361,8 @@ sudo modprobe radeon
 
 In the same way, we can start the display manager back.
 
-# For GNOME: `sudo systemctl start gdm3`
+## For GNOME: `sudo systemctl start gdm3`
 
-# For KDE: `sudo systemctl start sddm`
+## For KDE: `sudo systemctl start sddm`
 
-# For XFCE: `sudo systemctl start lightdm`
+## For XFCE: `sudo systemctl start lightdm`
