@@ -634,7 +634,7 @@ machine will come back!
 
 # know issue
 
-If you using `SDDM` with `wayland` you much gonna take backsreen when you shutdown VM
+If you using `SDDM` with `wayland` you much gonna take blackscreen when you shutdown VM
 So how to fix that
 
 you just need to add to your bootloader
