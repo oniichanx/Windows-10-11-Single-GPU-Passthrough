@@ -3,7 +3,7 @@ Requirements
 2. Your operating system should be installed in UEFI mode.
 3. Your processor needs to support virtualization.
 
-<img src="https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-39.png" alt="A description of the image">
+<img src="https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-39.png">
 
 # 1 - IOMMU Activation
 We need to activate IOMMU technology to transfer devices from our main machine to the guest.
