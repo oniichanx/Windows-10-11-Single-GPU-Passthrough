@@ -187,4 +187,4 @@ First,click the "Create Machine" button in the top left corner of the Virtual
 Machine Manager window. By default, you will ask you to select a upload
 media, select the ISO file from the drop-down menu and automatically 
 detect the system type below. If it does not detect, type of system.
-
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-40.png)
