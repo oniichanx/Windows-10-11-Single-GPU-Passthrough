@@ -45,3 +45,24 @@ You need to restart your computer after these operations!
 In this step we will look at the IOMMU group, which includes our video card.
 
 If your video card is in which IOMMU group, you must add every item there to the virtual machine.
+
+```
+#!/bin/bash
+shopt -s nullglob
+for g in /sys/kernel/iommu_groups/*; do
+    echo "IOMMU Group ${g##*/}:"
+    for d in $g/devices/*; do
+        echo -e "\t$(lspci -nns ${d##*/})"
+    done;
+done;
+```
+
+When you run this script, it will list all IOMMU groups.
+
+IOMMU group with my video card:
+
+```
+IOMMU Group 12:  
+  01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA104 [GeForce RTX 3060 Ti GDDR6X] [10de:24c9] (rev a1)  
+  01:00.1 Audio device [0403]: NVIDIA Corporation GA104 High Definition Audio Controller [10de:228b] (rev a1)
+```
