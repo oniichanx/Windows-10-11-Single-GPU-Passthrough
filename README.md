@@ -327,7 +327,7 @@ NVIDIA
 ```
 sudo chmod +x nvflash
 sudo ./nvflash --save etcios.rom
-``
+```
 
 AMD
 
