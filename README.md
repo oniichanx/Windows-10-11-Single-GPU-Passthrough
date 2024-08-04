@@ -108,3 +108,83 @@ Arch Linux based deployments: `sudo pacman -S virt-manager qemu vde2 ebtables ip
 Fedora based deployments: `sudo dnf install @virtualization`
 
 OpenSuse: `sudo zypper in libvirt libvirt-client libvirt-daemon virt-manager virt-install virt-viewer qemu qemu-kvm qemu-ovmf-x86_64 qemu-tools`
+
+# 3.1 Adjusting Libvirt and Virt-Manager
+
+# 3.1.1 libvirtd.conf
+First  `/etc/libvirt/libvirtd.conf` we need to edit the file. Here you can use vim, nano or nvim terminal text
+editors depending on your request. In order to be easy, I'll base the 
+nano on the guide.
+
+`sudo nano /etc/libvirt/libvirtd.conf`
+
+-- If you use graphic editors, you may encounter permission shortages.
+
+# 3.1.2 Read Writing permissions and group
+Delete # character from the following lines.
+
+`unix_sock_group = "libvirt"`
+`unix_sock_rw_perms = "0770"`
+
+# 3.1.3 Debugging and Recording Retention
+
+# IMPORTANT: It is essential that you add these lines to understand and solve the problems you will encounter!
+
+At the end of the file, add the following lines.
+
+```
+log_filters="3:qemu 1:libvirt"
+log_outputs="2:file:/var/log/libvirt/libvirtd.log"
+```
+
+# 3.1.4 Add Yourself to the Libvirt Group
+You need to add yourself to the group so you don't have a permit problem with Libvirt.
+
+`sudo usermod -a -G kvm,libvirt $(whoami)`
+
+Let's start the service later.
+
+`sudo systemctl enable --now libvirtd`
+
+Confirm if you are in the Libvirt group with the following command.
+
+`sudo groups $(whoami)`
+
+# 3.2 qemu.conf
+Another setting file we will edit is qemu.conf
+
+`sudo nano /etc/libvirt/qemu.conf`
+
+Remove the character # in line 518 and 524.
+
+`user = "root"`
+`group = "root"`
+
+`root` change the post with your username.
+
+`user = "oniichanx"`
+`group = "oniichanx"`
+
+Then restart the libvirt.
+
+`sudo systemctl restart libvirtd`
+
+# 3.2.1 Launching Virtual Machine network Default
+If you don't want to encounter the start warning every time you turn on your computer, enter the command below.
+
+`sudo virsh net-autostart default`
+
+# 4 - Setting Virt Manager and Install Windows
+Now it's time to install Windows.
+
+# 4.1 Required Files
+You should download the latest Virtio ISO file.
+
+You can download ISO file from optional Windows 10 or Windows 11 official sites
+
+# 4.2 VM Installation
+First,click the "Create Machine" button in the top left corner of the Virtual
+Machine Manager window. By default, you will ask you to select a upload
+media, select the ISO file from the drop-down menu and automatically 
+detect the system type below. If it does not detect, type of system.
+
