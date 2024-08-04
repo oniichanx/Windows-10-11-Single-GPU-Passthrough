@@ -1,5 +1,3 @@
-# Windows 10/11 Single GPU Passthrough
-
 Requirements
 1. Your video card needs to support the UEFI. If it doesn't support, you can't do this.
 2. Your operating system should be installed in UEFI mode.
