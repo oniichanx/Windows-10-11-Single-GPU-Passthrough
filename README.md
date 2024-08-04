@@ -187,4 +187,80 @@ First,click the "Create Machine" button in the top left corner of the Virtual
 Machine Manager window. By default, you will ask you to select a upload
 media, select the ISO file from the drop-down menu and automatically 
 detect the system type below. If it does not detect, type of system.
+
 ![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-40.png)
+
+If you are using Windows 10 for disk size, you should write at least 50 GB if you are using Windows 11, at least 128 GB.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-43.png)
+
+We set RAM on the next screen. Don't give all your RAM to the VM, your 
+computer crashs. It is advisable to leave a RAM from 1 to 3 GB on your 
+host.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-44.png)
+
+In the summary section, mark the "Customize configuration before install" tick.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-45.png)
+
+For subsequent settings, do not forget to press the "Agreat" button at the bottom right after each step.
+Now,in your VM you are in the Overview tab in your public settings. In this
+tab, at the bottom, set the chipset to "Q35." Select a UEFI firmware, 
+depending on your deployment, the names may vary, but it always ends 
+with "OVMF_.fd" or "ovmf-.bin."
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-46.png)
+
+If you are using Windows 11, you should choose what ends with sec-boot.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-47.png)
+
+Go to the CPU tab. Mark the "Copy host CPU configuration" tick and 
+expand "Topology. Mark the "Manually set CPU topology" tick and change 
+the setting depending on your CPU. For more CPU about your processor  `lscpu` you can run the command.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-48.png)
+
+Then, choose the "Disk 1" drive. Set "Disk bus" to VirtIO. Open "Advanced Options" and set "Cache mode" option to "writeback."
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-49.png)
+
+Go to the "Boot Options" tab make sure that "SATA CDROM 1" is selected 
+and in the first position. This is your Windows 10 or Windows 11 ISO 
+file.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-50.png)
+
+Click "Add Hardware" from the bottom left to "Device Type" CD-ROM 
+device, and select your previously downloaded VirtIO ISO file. Make sure
+Sata CD-Rom 2 is ticked on Boot options, but not first. This will help 
+us install our VirtIO drivers
+Finally, come to the network tab and
+select the drive model as Virtio. Uninstall the link state mark, this 
+tick will discontinu internet access to the VM. Installing without the 
+Internet is usually healthier on Windows.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-51.png)
+
+Note: If you are using Windows 11, you should add 
+virtual TPM. For this, it is necessary to have a swtpm package installed in your system.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-65.png)
+
+# 4.3 Windows Setup
+You may have noticed that we haven't added the GPU to the VM yet. We need to complete the Windows installation before adding the GPU.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-52.png)
+
+On the disk select screen, you will notice that our disk does not appear
+because VirtIO drivers are not installed. We click on the load driver 
+option below and install the required drive from our ISO file.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-53.png)
+
+If you are using Windows 11, select the w11 type-writer folder.
+
+![New VM](https://github.com/oniichanx/Windows-10-11-Single-GPU-Passthrough/blob/main/pic/image-54.png)
+
+We can now perform the installation.
