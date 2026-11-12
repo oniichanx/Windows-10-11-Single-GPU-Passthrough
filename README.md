@@ -102,6 +102,7 @@ Download the following packages according to your own distribution
 Ubuntu, Mint, Pop_OS and Debian based deployments: `sudo apt install qemu-system-x86 libvirt-clients libvirt-daemon-system libvirt-daemon-config-network bridge-utils virt-manager ovmf`
 
 Arch Linux based deployments: `sudo pacman -S virt-manager qemu vde2 ebtables iptables-nft nftables dnsmasq bridge-utils ovmf`
+
 Arch Linux based deployments 2: `sudo pacman -S qemu-full virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat ebtables iptables libguestfs`
 
 Fedora based deployments: `sudo dnf install @virtualization`
